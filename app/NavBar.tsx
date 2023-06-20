@@ -27,17 +27,17 @@ import { AccessibilityNewOutlined } from "@mui/icons-material";
 
 function NavBar() {
     const options = [
-        { link: 'Bookmarks', icon: <BookmarkBorderOutlined style={{ paddingRight: '5px' }} /> },
-        { link: 'List', icon: <ListAltOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Topic', icon: <ChatOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Moments', icon: <OfflineBoltOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Newsletters', icon: <PostAddOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Twitter Ads', icon: <CallMadeOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Analytics', icon: <BarChartOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Settings', icon: <SettingsOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Help Center', icon: <HelpOutlineOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Display', icon: <BrushOutlined style={{ paddingRight: '5px' }}/> },
-        { link: 'Keyboard shortcuts', icon: <AccessibilityNewOutlined style={{ paddingRight: '5px' }}/> },
+        { link: 'Bookmarks', icon: <BookmarkBorderOutlined  /> },
+        { link: 'List', icon: <ListAltOutlined /> },
+        { link: 'Topic', icon: <ChatOutlined /> },
+        { link: 'Moments', icon: <OfflineBoltOutlined /> },
+        { link: 'Newsletters', icon: <PostAddOutlined /> },
+        { link: 'Twitter Ads', icon: <CallMadeOutlined /> },
+        { link: 'Analytics', icon: <BarChartOutlined /> },
+        { link: 'Settings', icon: <SettingsOutlined /> },
+        { link: 'Help Center', icon: <HelpOutlineOutlined /> },
+        { link: 'Display', icon: <BrushOutlined /> },
+        { link: 'Keyboard shortcuts', icon: <AccessibilityNewOutlined /> },
 
     ];
 
@@ -71,7 +71,10 @@ function NavBar() {
             >
                 {options.map((option) => (
                     <MenuItem key={option.link} onClick={handleClose}>
-                        {option.icon} {option.link}
+                        <div className='pr-2'>
+                        {option.icon}
+                        </div>
+                        {option.link}
                     </MenuItem>
                 ))}
             </Menu>
