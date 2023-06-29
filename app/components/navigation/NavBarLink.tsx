@@ -8,8 +8,8 @@ interface SidebarLinkProps {
 
 function SidebarLink({ text, Icon }: SidebarLinkProps): ReactElement {
   return (
-    <div className="flex items-center cursor-pointer rounded-full hover:bg-blue-100 
-                  hover:text-blue-500 transition-colors duration-100 ease-out">
+    <div className="flex items-center cursor-pointer rounded-full hover:bg-[#2c3640] 
+                  transition-colors duration-100 ease-out">
     <div className='p-5'>
       <Icon />
       </div>
