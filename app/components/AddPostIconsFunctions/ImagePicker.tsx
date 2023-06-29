@@ -29,7 +29,7 @@ const ImagePickerWithIcon: React.FC<ImagePickerProps> = ({ onImageSelect }) => {
         style={{ display: "none" }}
         onChange={handleFileSelect}
       />
-      <IconButton onClick={handleClick} aria-label="Pick Image">
+      <IconButton onClick={handleClick} aria-label="Pick Image" className=" mt-3">
         <PhotoLibraryIcon className="text-white"/>
       </IconButton>
     </>

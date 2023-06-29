@@ -52,14 +52,14 @@ function NavBar() {
 
     return (
         <div className="w-50 min-w-64  h-screen p-5 mx-auto mt-5 ml-20">
-            <SidebarLink text="Home" Icon={HomeIcon} />
+            <SidebarLink text="Home" Icon={HomeIcon}/>
             <SidebarLink text="Explore" Icon={SearchIcon} />
             <SidebarLink text="Notifications" Icon={NotificationsNoneIcon} />
             <SidebarLink text="Messages" Icon={MailOutlineIcon} />
             <SidebarLink text="Bookmarks" Icon={BookmarkBorderIcon} />
             <SidebarLink text="Lists" Icon={ListAltIcon} />
             <SidebarLink text="Profile" Icon={PermIdentityIcon} />
-            <Button onClick={handleClick} id="moreLinks" className="capitalize w-full border-2 border-gray-300 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-100 hover:text-primary">
+            <Button onClick={handleClick} id="moreLinks" className="capitalize w-full border-2 border-gray-600 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-700 hover:text-primary">
                 <MoreHorizIcon className=' ml-1 mr-5'/> More
             </Button>
             <Button className="w-full h-12 bg-blue-500 rounded-3xl text-white font-bold hover:bg-blue-600">Tweet</Button>

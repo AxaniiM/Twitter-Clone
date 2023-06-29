@@ -37,9 +37,9 @@ import GifPickerWithIcon from "./AddPostIconsFunctions/GifPickerWithIcon";
 
     return (
         <div className="border-y-[0.5px] w-full relative flex items-center space-x-2 border-gray-600 py-6">
-            <div className="w-10 h-10 bg-slate-400 rounded-full m-4 flex-none"></div>
+            <div className="w-10 h-10 bg-slate-400 rounded-full mx-4 flex-none mb-10"></div>
             <div className="flex flex-col w-full h-full">
-                <input type="text" placeholder="What is happening?!" value={input} onChange={handleInputChange} className="placeholder:text-gray-500 placeholder:text-xl w-full h-full bg-transparent outline-none border-none" />
+                <input type="text" placeholder="What is happening?!" value={input} onChange={handleInputChange} className="placeholder:text-gray-500 placeholder:text-xl w-full h-full bg-transparent outline-none border-none mt-4" />
                 {selectedImage && (
           <img
             src={URL.createObjectURL(selectedImage)}
@@ -58,10 +58,10 @@ import GifPickerWithIcon from "./AddPostIconsFunctions/GifPickerWithIcon";
                     <div className="flex flex-row">
                       <ImagePickerWithIcon onImageSelect={handleImageSelect}/>
                         <GifPickerWithIcon onGifSelect={handleGifSelect}/>
-                        <PollIcon />
-                        <EmojiEmotionsIcon />
-                        <PendingActionsIcon />
-                        <LocationOnIcon />
+                        <PollIcon className="mt-5 mr-3 ml-1"/>
+                        <EmojiEmotionsIcon className="mt-5 mr-3"/>
+                        <PendingActionsIcon className="mt-5 mr-3"/>
+                        <LocationOnIcon className="mt-5"/>
                     </div>
                     <div className="w-full max-w-[100px]">
                         <Button onClick={handleTweet} className="w-16 h-9 bg-blue-500 rounded-3xl text-white font-bold hover:bg-blue-600 capitalize mt-6">Tweet
