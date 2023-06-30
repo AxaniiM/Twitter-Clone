@@ -61,8 +61,8 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
   };
 
   return (
-    <div className="">
-      <IconButton onClick={handleOpen} className=" mt-3">
+    <div className="p-0">
+      <IconButton onClick={handleOpen} className="p-0">
         <GifBoxIcon className="text-white"/>
       </IconButton>
       <Dialog open={open} onClose={handleClose}>

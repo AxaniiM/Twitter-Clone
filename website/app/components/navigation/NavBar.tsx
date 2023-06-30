@@ -9,6 +9,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import VerifiedIcon from '@mui/icons-material/Verified';
 import { Menu } from '@mui/material'
 import { MenuItem } from "@mui/material";
 import { Button } from "@mui/material";
@@ -23,6 +24,8 @@ import { SettingsOutlined } from "@mui/icons-material";
 import { HelpOutlineOutlined } from "@mui/icons-material";
 import { BrushOutlined } from "@mui/icons-material";
 import { AccessibilityNewOutlined } from "@mui/icons-material";
+import TwitterIcon from '@mui/icons-material/Twitter';
+import Link from 'next/link';
 
 
 function NavBar() {
@@ -51,32 +54,42 @@ function NavBar() {
 
 
     return (
-        <div className="w-50 min-w-64  h-screen p-5 mx-auto mt-5 ml-20">
-            <SidebarLink text="Home" Icon={HomeIcon}/>
-            <SidebarLink text="Explore" Icon={SearchIcon} />
-            <SidebarLink text="Notifications" Icon={NotificationsNoneIcon} />
-            <SidebarLink text="Messages" Icon={MailOutlineIcon} />
-            <SidebarLink text="Bookmarks" Icon={BookmarkBorderIcon} />
-            <SidebarLink text="Lists" Icon={ListAltIcon} />
-            <SidebarLink text="Profile" Icon={PermIdentityIcon} />
-            <Button onClick={handleClick} id="moreLinks" className="capitalize w-full border-2 border-gray-600 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-700 hover:text-primary">
-                <MoreHorizIcon className=' ml-1 mr-5'/> More
-            </Button>
-            <Button className="w-full h-12 bg-blue-500 rounded-3xl text-white font-bold hover:bg-blue-600">Tweet</Button>
-            <Menu
-                id="long-menu"
-                open={open}
-                onClose={handleClose}
-            >
-                {options.map((option) => (
-                    <MenuItem key={option.link} onClick={handleClose} className='mb-1'>
-                        <div className=''>
-                            {option.icon}
-                        </div>
-                        {option.link}
-                    </MenuItem>
-                ))}
-            </Menu>
+        <div className=" h-screen ml-[93px] mt-[11px]">
+            <Link href="/">
+                <TwitterIcon className='ml-3 text-[33px]' />
+            </Link>
+            <div className='mt-4'>
+                <div className='font-bold'>
+                    <SidebarLink text="Home" Icon={HomeIcon} />
+                </div>
+                <SidebarLink text="Explore" Icon={SearchIcon} />
+                <SidebarLink text="Notifications" Icon={NotificationsNoneIcon} />
+                <SidebarLink text="Messages" Icon={MailOutlineIcon} />
+                <SidebarLink text="Bookmarks" Icon={BookmarkBorderIcon} />
+                <SidebarLink text="Lists" Icon={ListAltIcon} />
+                <SidebarLink text='Verified' Icon={VerifiedIcon} />
+                <SidebarLink text="Profile" Icon={PermIdentityIcon} />
+                <Button onClick={handleClick} id="moreLinks" className="capitalize w-full border-2 border-gray-600 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-700 hover:text-primary">
+                    <MoreHorizIcon className='ml-1 mr-5' /> More
+                </Button>
+                <Button className="capitalize w-60 h-[52px] bg-blue-500 rounded-3xl text-white text-xl font-bold hover:bg-blue-600 mr-8">Tweet</Button>
+                <div className='mb-10'>
+                <Menu
+                    id="long-menu"
+                    open={open}
+                    onClose={handleClose}
+                >
+                    {options.map((option) => (
+                        <MenuItem key={option.link} onClick={handleClose} className='mb-1'>
+                            <div className=''>
+                                {option.icon}
+                            </div>
+                            {option.link}
+                        </MenuItem>
+                    ))}
+                </Menu>
+                </div>
+            </div>
         </div>
     );
 }
