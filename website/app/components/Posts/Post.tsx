@@ -1,23 +1,30 @@
-import { Avatar } from "@chakra-ui/react"
-
-interface Post {
-    avatar: string,
-    username: string,
-    id: number,
-    content: string,
-}   
+import React from "react";
+import { Card, CardContent, Typography, Avatar } from "@mui/material";
+import PostProps from "@/app/interfaces/postInterface";
 
 
-export const Post: React.FC<Post> = ({avatar, username, id, content}) => {
 
-  return (
-    <div key={id}>
-    <Avatar src={avatar}/> 
-    <div>{username}</div>
-    <div>@{username}</div>
-    <div>{content}</div>
+const Post: React.FC<PostProps> = ({ username, text, date, id, image, gif }) => {
 
-    </div>
+    return (
+        <Card className="mb-4 bg-[#15202b] text-white" key={id}>
+            <CardContent className="flex space-x-2" sx={{borderBottom: "0.5px solid gray"}}>
+                <Avatar alt={username} />
+                <div>
+                    <Typography variant="h6" component="div" className="text-slate-600">
+                        {username}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {date}
+                    </Typography>
+                    <Typography variant="body1">{text}</Typography>
+                    {image && <img src={URL.createObjectURL(image)} alt="Selected Image" />}
+                    {gif && <img src={gif} alt="Selected GIF" />}
+                </div>
+            </CardContent>
+        </Card>
+    );
+};
 
-  )
-}
+export default Post;
+

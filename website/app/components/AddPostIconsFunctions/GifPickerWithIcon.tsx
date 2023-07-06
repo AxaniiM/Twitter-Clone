@@ -85,6 +85,7 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
                     src={gif.images.fixed_height.url}
                     alt="GIF"
                     onClick={() => handleGifSelect(gif.images.fixed_height.url)}
+                    className="flex justify-center"
                   />
                 </Grid>
               ))

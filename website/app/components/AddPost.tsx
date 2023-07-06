@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Button, Input, InputAdornment } from "@mui/material";
+// import { Button, Input, InputAdornment } from "@mui/material";
 import {
+  Button,
+  Input,
+  InputAdornment,
   Avatar,
   Typography,
   Box,
-  IconButton,
   Paper,
   Grid,
 } from "@mui/material";
@@ -14,13 +16,34 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ImagePickerWithIcon from "./AddPostIconsFunctions/ImagePicker";
 import GifPickerWithIcon from "./AddPostIconsFunctions/GifPickerWithIcon";
+import { useDispatch } from "react-redux";
+import { addPost } from "../actions/postActions";
 
 const AddPost = () => {
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedGif, setSelectedGif] = useState(null);
 
+  const dispatch = useDispatch();
+
   const maxLength = 280;
+
+  const handleTweet = () => {
+    console.log("Tweet button clicked")
+    const newPost = {
+      username: "username",
+      id: Date.now(),
+      text: input,
+      date: new Date().toDateString(),
+      image: selectedImage,
+      gif: selectedGif,
+    };
+
+    dispatch(addPost(newPost));
+    setInput("");
+    setSelectedGif(null);
+    setSelectedImage(null);
+  };
 
   const handleImageSelect = (file: any) => {
     setSelectedImage(file);
@@ -38,13 +61,6 @@ const AddPost = () => {
   };
 
   const exceedingLimit = input.length >= maxLength;
-
-  const handleTweet = () => {
-    /* Add logic that will handle sending a tweet to the database and display. */
-    setInput("");
-    setSelectedGif(null);
-    setSelectedImage(null);
-  };
 
   return (
     <Paper
@@ -78,7 +94,7 @@ const AddPost = () => {
           }}
           inputProps={{
             maxLength: 280,
-            
+
           }}
           onChange={handleInputChange}
           endAdornment={
@@ -112,7 +128,7 @@ const AddPost = () => {
           alignItems="center"
           justifyContent="center"
           spacing={2}
-          sx={{ marginTop: "4px", color: "white"}}
+          sx={{ marginTop: "4px", color: "white" }}
         >
           <Grid item>
             <ImagePickerWithIcon onImageSelect={handleImageSelect} />
@@ -135,7 +151,7 @@ const AddPost = () => {
         </Grid>
         <Button
           onClick={handleTweet}
-          sx={{ mt: "1rem", float: "right"}}
+          sx={{ mt: "1rem", float: "right" }}
           className="w-16 h-9 bg-blue-500 rounded-3xl text-white font-bold hover:bg-blue-600 capitalize"
         >
           Tweet
