@@ -1,5 +1,3 @@
-
-
 import './globals.css'
 import NavBarWrapper from './components/navigation/NavBarWrapper';
 import { ReduxWrapperProvider } from './reducers/ReduxWrapper';
@@ -17,15 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ReduxWrapperProvider>
-      <body className='bg-[#15202b] text-white flex flex-row'>
-      
-        <div className='flex float-left'>
-          <NavBarWrapper />
-        </div>
-        
+        <body className='bg-[#15202b] text-white flex flex-row'>
+          <div className='flex float-left'>
+            <NavBarWrapper />
+          </div>
           {children}
-        
-      </body>
+        </body>
       </ReduxWrapperProvider>
 
     </html>

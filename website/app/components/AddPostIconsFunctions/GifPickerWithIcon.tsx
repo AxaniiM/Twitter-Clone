@@ -3,7 +3,6 @@ import axios from "axios";
 import {
   Button,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
   TextField,
@@ -25,7 +24,7 @@ interface Gif {
 const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => void }) => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [gifList, setGifList] = useState<Gif[]>([]); // Specify the type as Gif[]
+  const [gifList, setGifList] = useState<Gif[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleOpen = () => {
@@ -45,7 +44,7 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
       const API_KEY = "W37dT7kwWcteo5iaM4iXlcNzTts0dcN4";
       setLoading(true);
       const response = await axios.get(
-        `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchTerm}&limit=10`
+        `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${searchTerm}`
       );
       setGifList(response.data.data);
       setLoading(false);
@@ -65,9 +64,8 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
       <IconButton onClick={handleOpen} className="p-0">
         <GifBoxIcon className="text-white"/>
       </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Select a GIF</DialogTitle>
-        <DialogContent>
+      <Dialog open={open} onClose={handleClose} sx={{ "& .MuiPaper-root": { backgroundColor: '#15202b' } }}>
+        <DialogContent >
           <TextField
             label="Search GIFs"
             value={searchTerm}
@@ -99,5 +97,4 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
     </div>
   );
 };
-
 export default GifPickerWithIcon;
