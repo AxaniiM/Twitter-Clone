@@ -1,5 +1,6 @@
-
-
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { updateSignUpFormData } from '@/app/actions/signUpActions';
 import {
   Avatar,
   Button,
@@ -11,20 +12,36 @@ import {
   Container
 } from "@mui/material";
 
+interface SignUpProps {
+  onSwitchToSignIn: () => void;
+  onClose: () => void;
+}
+
+const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
+  const dispatch = useDispatch();
 
 
-export default function SignUp() {
+  // Handle form submission
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formData = {
+      firstName: (event.target as any).firstName.value,
+      lastName: (event.target as any).lastName.value,
+      email: (event.target as any).email.value,
+      password: (event.target as any).password.value,
+    };
+    dispatch(updateSignUpFormData(formData));
+    onClose()
+  }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div >
-        <Avatar >
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
+      <div>
+        <Typography component="h1" variant="h5" className="mt-8 mb-5 text-center">
+          Sign up for Twitter
         </Typography>
-        <form >
+        <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -78,18 +95,25 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color="primary"
+            className="mt-4 rounded-xl bg-blue-500 hover:bg-blue-600"
           >
             Sign Up
           </Button>
-          <Grid container >
+          <Grid container>
             <Grid item>
-              <Link href="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
+              <p className="mt-2">
+                Already have an account?{' '}
+                <span onClick={onSwitchToSignIn} className="cursor-pointer">
+                  Sign in
+                </span>
+              </p>
             </Grid>
           </Grid>
         </form>
       </div>
     </Container>
   );
-}
+};
+
+
+export default SignUpForm;

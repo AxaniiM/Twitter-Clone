@@ -1,9 +1,9 @@
 'use client'
-
 import AddPost from "../components/AddPost"
 import HomeHeader from "../components/HomeHeader"
 import PostList from "../components/Posts/PostList"
-import SignInDialogueBox from "../components/sign-in/SignInDialogueBox"
+import AuthContainer from "../components/authentification/AuthContainer"
+
 
 
 
@@ -17,7 +17,7 @@ export default function Home() {
         <AddPost />
         <PostList />
       </main>
-      <SignInDialogueBox />
+      <AuthContainer />
     </div>
   )
 }

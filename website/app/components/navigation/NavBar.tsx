@@ -56,7 +56,7 @@ function NavBar() {
 
     return (
         <div className=" h-screen ml-[93px] mt-[11px]">
-            <Link href="/">
+            <Link href="/home">
                 <TwitterIcon className='ml-3 text-[33px]' />
             </Link>
             <div className='mt-4'>

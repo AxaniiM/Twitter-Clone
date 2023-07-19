@@ -75,7 +75,7 @@ const AddPost = () => {
         justifyContent: "space-between",
       }}
     >
-      <Box>
+      <Box> 
         <Avatar
           className="bg-slate-400 rounded-full"
           sx={{ marginBottom: "1rem" }}

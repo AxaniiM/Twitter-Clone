@@ -1,11 +1,12 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import postReducer from "./reducers/postReducer";
+import signUpReducer from "./reducers/signUpReducer";
 
 export type RootState = ReturnType<typeof rootReducer>
 
 const rootReducer = combineReducers({
   posts: postReducer,
-  // other reducers...
+  signUpForm: signUpReducer,
 });
 
 const store = configureStore({
