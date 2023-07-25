@@ -1,0 +1,30 @@
+/* Profile.module.css */
+
+.profile-header {
+  background-color: #f0f0f0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.avatar-container {
+  position: relative;
+  margin-left: 20px;
+}
+
+.avatar {
+  width: 100px; /* Set the width and height of your avatar accordingly */
+  height: 100px;
+  border-radius: 50%; /* To create a circular avatar */
+  border: 2px solid #fff; /* To add a border around the avatar */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow effect */
+  position: absolute;
+  top: -50px; /* Adjust this value to half the avatar's height to overlap with the header */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+}

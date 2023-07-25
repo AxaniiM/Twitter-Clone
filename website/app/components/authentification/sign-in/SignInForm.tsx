@@ -12,18 +12,18 @@ interface SignInProps {
 }
 
 
-export const SignInDialogueBox: React.FC<SignInProps> = ({ onSwitchToSignUp }) => {
+export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp }) => {
 
   return (
     <Box
       sx={{
-        marginTop: 8,
+        marginTop: 5,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
     >
-      <h1>Sign In to Twiter</h1>
+      <h1 className='text-2xl'>Sign In to Twiter</h1>
       <Box component="form" noValidate sx={{ mt: 1 }}>
         <>
           <TextField
@@ -31,20 +31,27 @@ export const SignInDialogueBox: React.FC<SignInProps> = ({ onSwitchToSignUp }) =
             required
             fullWidth
             id="email"
-            label="Email Address"
             name="email"
             autoComplete="email"
             autoFocus
+            label="Email"
           />
           <TextField
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            InputProps={{
+              sx: {
+                  "& input": {
+                      color: 'gray'
+                  }
+              }
+          }}
+          placeholder="Password"
           />
           <Button
             type="submit"
@@ -74,4 +81,4 @@ export const SignInDialogueBox: React.FC<SignInProps> = ({ onSwitchToSignUp }) =
   )
 }
 
-export default SignInDialogueBox;
+export default SignInForm;

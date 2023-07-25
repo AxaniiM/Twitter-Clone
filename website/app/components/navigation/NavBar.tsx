@@ -30,6 +30,8 @@ import Link from 'next/link';
 
 
 function NavBar() {
+    const [open, setOpen] = useState(false);
+    
     const options = [
         { link: 'Bookmarks', icon: <BookmarkBorderOutlined /> },
         { link: 'List', icon: <ListAltOutlined /> },
@@ -44,7 +46,7 @@ function NavBar() {
         { link: 'Keyboard shortcuts', icon: <AccessibilityNewOutlined /> },
     ];
 
-    const [open, setOpen] = useState(false);
+
 
     const handleClose = () => {
         setOpen(false)
@@ -61,15 +63,18 @@ function NavBar() {
             </Link>
             <div className='mt-4'>
                 <div className='font-bold'>
+                <Link href="/home">
                     <SidebarLink text="Home" Icon={HomeIcon} />
+                    </Link>
                 </div>
+                
                 <SidebarLink text="Explore" Icon={SearchIcon} />
                 <SidebarLink text="Notifications" Icon={NotificationsNoneIcon} />
                 <SidebarLink text="Messages" Icon={MailOutlineIcon} />
                 <SidebarLink text="Bookmarks" Icon={BookmarkBorderIcon} />
                 <SidebarLink text="Lists" Icon={ListAltIcon} />
                 <SidebarLink text='Verified' Icon={VerifiedIcon} />
-                <Link href="/pages/profile/1">
+                <Link href="/profile">
                     <SidebarLink text="Profile" Icon={PermIdentityIcon} />
                 </Link>
                 <Button onClick={handleClick} id="moreLinks" className="capitalize w-full border-2 border-gray-600 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-700 hover:text-primary">

@@ -32,7 +32,10 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
     };
     dispatch(updateSignUpFormData(formData));
     onClose()
+    console.log(formData)
+    
   }
+
 
   return (
     <Container component="main" maxWidth="xs">

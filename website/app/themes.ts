@@ -17,6 +17,13 @@ const theme = createTheme({
               color: "#ccc", // Gray placeholder text color
             },
           },
+            "& .MuiFormLabel-root": {
+                color: '#989898'
+            },
+            "& .MuiFormLabel-root.Mui-focused": {
+                color: '#989898'
+            }
+        
         },
       },
     },

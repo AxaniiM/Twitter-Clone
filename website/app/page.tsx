@@ -1,8 +1,8 @@
 'use client'
-import AddPost from '../components/AddPost'
-import HomeHeader from "../components/HomeHeader"
-import PostList from "../components/Posts/PostList"
-import AuthContainer from "../components/authentification/AuthContainer"
+import AddPost from "./components/AddPost"
+import HomeHeader from "./components/HomeHeader"
+import PostList from "./components/Posts/PostList"
+import AuthContainer from "./components/authentification/AuthContainer"
 
 
 

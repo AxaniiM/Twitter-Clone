@@ -4,6 +4,7 @@
 /website/node_modules
 /website/.pnp
 /website/.pnp.js
+node_modules
 
 /api/node_modules
 

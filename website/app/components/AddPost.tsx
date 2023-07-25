@@ -62,6 +62,7 @@ const AddPost = () => {
 
   const exceedingLimit = input.length >= maxLength;
 
+
   return (
     <Paper
       elevation={0}
