@@ -9,19 +9,19 @@ interface PostComponentProps extends PostProps {
 
 const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, gif, onDelete }) => {
 
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // managing the submenu with Delete button
 
-  const handleOpenPostMenu = () => {
-    setOpen(true);
+  const handleOpenPostMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   }
 
   const handleClosePostMenu = () => {
-    setOpen(false);
+    setAnchorEl(null);
   }
 
   const handleDeletePost = () => {
-    onDelete(); // Call the onDelete function passed from PostList
-    setOpen(false); 
+    onDelete(); // comes from PostList
+    handleClosePostMenu();
   }
 
   return (
@@ -29,30 +29,42 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
       <IconButton className="text-white float-right" onClick={handleOpenPostMenu}>
         <MoreHorizIcon />
       </IconButton>
-      <Menu open={open} onClose={handleClosePostMenu}>
+      <Menu
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClosePostMenu}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
         <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
       </Menu>
       <CardContent className="flex space-x-2" sx={{ borderBottom: "0.5px solid gray" }}>
-                <Avatar alt={username} />
-                <div>
-                    <div className="flex flex-row items-center justify-start">
-                        <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
-                            {username}
-                        </Typography>
-                        <Typography variant="h6" component="div" className="text-slate-600" sx={{ marginLeft: "6px", fontSize: "16px" }}>
-                            @{username}
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "white", marginLeft: "5px", fontSize: "13px" }}>
-                            {date}
-                        </Typography>
-                    </div>
-                    <Typography variant="body1">{text}</Typography>
-                    {image && <img src={URL.createObjectURL(image)} alt="Selected Image" />}
-                    {gif && <img src={gif} alt="Selected GIF" />}
-                </div>
-            </CardContent>
-        </Card>
-    );
+        <Avatar alt={username} />
+        <div>
+          <div className="flex flex-row items-center justify-start">
+            <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
+              {username}
+            </Typography>
+            <Typography variant="h6" component="div" className="text-slate-600" sx={{ marginLeft: "6px", fontSize: "16px" }}>
+              @{username}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "white", marginLeft: "5px", fontSize: "13px" }}>
+              {date}
+            </Typography>
+          </div>
+          <Typography variant="body1">{text}</Typography>
+          {image && <img src={URL.createObjectURL(image)} alt="Selected Image" />}
+          {gif && <img src={gif} alt="Selected GIF" />}
+        </div>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default Post;

@@ -30,7 +30,7 @@ import Link from 'next/link';
 
 
 function NavBar() {
-    const [open, setOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     
     const options = [
         { link: 'Bookmarks', icon: <BookmarkBorderOutlined /> },
@@ -48,11 +48,11 @@ function NavBar() {
 
 
 
-    const handleClose = () => {
-        setOpen(false)
+    const handleCloseSubMenu = () => {
+        setAnchorEl(null)
     }
-    const handleClick = () => {
-        setOpen(true);
+    const handleOpenSubMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
     };
 
 
@@ -77,18 +77,24 @@ function NavBar() {
                 <Link href="/profile">
                     <SidebarLink text="Profile" Icon={PermIdentityIcon} />
                 </Link>
-                <Button onClick={handleClick} id="moreLinks" className="capitalize w-full border-2 border-gray-600 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-700 hover:text-primary">
+                <Button onClick={handleOpenSubMenu} id="moreLinks" className="capitalize w-full border-2 border-gray-600 rounded-full font-semibold text-lg text-white flex justify-start items-center space-x-2 h-16 pl-4 pr-8 mb-2 transition duration-100 ease-out hover:bg-gray-700 hover:text-primary">
                     <MoreHorizIcon className='ml-1 mr-5' /> More
                 </Button>
                 <Button className="capitalize w-60 h-[52px] bg-blue-500 rounded-3xl text-white text-xl font-bold hover:bg-blue-600 mr-8">Tweet</Button>
                 <div className='mb-10'>
                     <Menu
                         id="long-menu"
-                        open={open}
-                        onClose={handleClose}
+                        open={Boolean(anchorEl)}
+                        onClose={handleCloseSubMenu}
+                        anchorEl={anchorEl}
+                        sx={{
+                            bg: "black",
+                            bgColor: 'black',
+                            color: 'white'
+                        }}
                     >
                         {options.map((option) => (
-                            <MenuItem key={option.link} onClick={handleClose} className='mb-1'>
+                            <MenuItem key={option.link} onClick={handleCloseSubMenu} className='mb-1'>
                                 <div className=''>
                                     {option.icon}
                                 </div>
