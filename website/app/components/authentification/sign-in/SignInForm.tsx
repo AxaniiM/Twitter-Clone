@@ -22,7 +22,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
     const formData = new FormData(event.currentTarget);
 
     try {
-      const response = await fetch('http://localhost:8000/auth/login/', {
+      const response = await fetch('http://localhost:8000/auth/signin/', {
         method: 'POST',
         body: formData,
       });
@@ -32,7 +32,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
       }
 
       const data = await response.json();
-      dispatch(updateSignInFormData(data.formData));
+      dispatch(updateSignInFormData(data));
       console.log('Success!', data);
     } catch (error) {
       console.error('Error:', error);

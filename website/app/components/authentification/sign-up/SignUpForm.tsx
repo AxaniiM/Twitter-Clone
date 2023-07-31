@@ -2,11 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { updateSignUpFormData } from '@/app/actions/signUpActions';
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
-  Link,
   Grid,
   Typography,
   Container
@@ -24,15 +22,17 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     try {
-      const response = await fetch('http://localhost:8000/auth/login/', {
+      const response = await fetch('http://localhost:8000/auth/signup/', {
         method: 'POST',
         body: formData,
       })
+      console.log(response)
       if (!response.ok) {
         throw new Error("Failed to sign up. Check all your credentials.")
       }
+
       const data = await response.json()
-      dispatch(updateSignUpFormData(data.formData))
+      dispatch(updateSignUpFormData(data))
       console.log('Success', data)
     } catch (error) {
       console.log('Error!', error)
@@ -49,45 +49,14 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
         <form onSubmit={handleSubmit
         }>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-
+                required
                 fullWidth
                 id="username"
                 label="Username"
                 name="username"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
               />
             </Grid>
             <Grid item xs={12}>
@@ -99,7 +68,6 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
               />
             </Grid>
           </Grid>
