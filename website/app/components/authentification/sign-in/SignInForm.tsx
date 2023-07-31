@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Button,
   TextField,
@@ -14,29 +13,30 @@ interface SignInProps {
   onClose: () => void;
 }
 
-
 export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose }) => {
 
   const dispatch = useDispatch()
 
-  const handleSubmit = (username: string, password: string) => {
-    const formData = new FormData()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
 
-    formData.append('username', username)
-    formData.append('password', password)
-
-    fetch('http://localhost:8000/auth/signin/', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch(updateSignInFormData(data.formData));
-        console.log('Success!', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    try {
+      const response = await fetch('http://localhost:8000/auth/login/', {
+        method: 'POST',
+        body: formData,
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to sign in');
+      }
+
+      const data = await response.json();
+      dispatch(updateSignInFormData(data.formData));
+      console.log('Success!', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
 
     onClose();
   };
@@ -51,7 +51,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
       }}
     >
       <h1 className='text-2xl'>Sign In to Twiter</h1>
-      <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSubmit}>
         <>
           <TextField
             margin="normal"
@@ -102,7 +102,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
             </Grid>
           </Grid>
         </>
-      </Box>
+      </form>
     </Box>
 
   )
