@@ -8,9 +8,7 @@ type SignUpAction = {
 
 // Define the initial state
 const initialSignUpState: FormState = {
-  firstName: "",
-  lastName: "",
-  email: "",
+username: "",
   password: "",
 };
 

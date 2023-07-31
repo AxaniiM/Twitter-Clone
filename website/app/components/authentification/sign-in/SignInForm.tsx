@@ -6,13 +6,40 @@ import {
   Grid,
   Box,
 } from '@mui/material'
+import { useDispatch } from 'react-redux';
+import { updateSignInFormData } from '@/app/actions/signInActions';
 
 interface SignInProps {
-  onSwitchToSignUp: () => void
+  onSwitchToSignUp: () => void;
+  onClose: () => void;
 }
 
 
-export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp }) => {
+export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose }) => {
+
+  const dispatch = useDispatch()
+
+  const handleSubmit = (username: string, password: string) => {
+    const formData = new FormData()
+
+    formData.append('username', username)
+    formData.append('password', password)
+
+    fetch('http://localhost:8000/auth/signin/', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(updateSignInFormData(data.formData));
+        console.log('Success!', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    onClose();
+  };
 
   return (
     <Box
@@ -24,7 +51,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp }) => {
       }}
     >
       <h1 className='text-2xl'>Sign In to Twiter</h1>
-      <Box component="form" noValidate sx={{ mt: 1 }}>
+      <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
         <>
           <TextField
             margin="normal"

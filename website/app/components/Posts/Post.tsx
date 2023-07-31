@@ -25,7 +25,13 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
   }
 
   return (
-    <Card className="mb-4 bg-[#15202b] text-white" key={id}>
+    <Card className="mb-4 bg-[#15202b] text-white" key={id} sx={{
+      borderRadius: 0,
+      borderColor: "#404a58", // Set the border color to gray
+      borderBottomWidth: "0.5px", // Set the border width
+      boxShadow: 0,
+
+    }}>
       <IconButton className="text-white float-right" onClick={handleOpenPostMenu}>
         <MoreHorizIcon />
       </IconButton>
@@ -41,12 +47,19 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
           vertical: 'top',
           horizontal: 'left',
         }}
+        MenuListProps={{
+          style: {
+            backgroundColor: "#15202b",
+            color: 'white',
+            border: "1px solid"
+
+          }
+        }}
       >
         <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
       </Menu>
-      <CardContent className="flex space-x-2" sx={{ borderBottom: "0.5px solid gray" }}>
+      <CardContent className="flex space-x-2" >
         <Avatar alt={username} />
-        <div>
           <div className="flex flex-row items-center justify-start">
             <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
               {username}
@@ -61,7 +74,6 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
           <Typography variant="body1">{text}</Typography>
           {image && <img src={URL.createObjectURL(image)} alt="Selected Image" />}
           {gif && <img src={gif} alt="Selected GIF" />}
-        </div>
       </CardContent>
     </Card>
   );

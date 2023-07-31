@@ -9,9 +9,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import { Menu } from '@mui/material'
-import { MenuItem } from "@mui/material";
-import { Button } from "@mui/material";
+import { MenuItem, Menu, Button, Box } from "@mui/material";
 import {
     BookmarkBorderOutlined,
     ListAltOutlined,
@@ -23,7 +21,7 @@ import {
     SettingsOutlined,
     HelpOutlineOutlined,
     BrushOutlined,
-    AccessibilityNewOutlined
+    AccessibilityNewOutlined,
 } from "@mui/icons-material";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from 'next/link';
@@ -31,7 +29,7 @@ import Link from 'next/link';
 
 function NavBar() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    
+
     const options = [
         { link: 'Bookmarks', icon: <BookmarkBorderOutlined /> },
         { link: 'List', icon: <ListAltOutlined /> },
@@ -63,11 +61,11 @@ function NavBar() {
             </Link>
             <div className='mt-4'>
                 <div className='font-bold'>
-                <Link href="/home">
-                    <SidebarLink text="Home" Icon={HomeIcon} />
+                    <Link href="/home">
+                        <SidebarLink text="Home" Icon={HomeIcon} />
                     </Link>
                 </div>
-                
+
                 <SidebarLink text="Explore" Icon={SearchIcon} />
                 <SidebarLink text="Notifications" Icon={NotificationsNoneIcon} />
                 <SidebarLink text="Messages" Icon={MailOutlineIcon} />
@@ -87,14 +85,17 @@ function NavBar() {
                         open={Boolean(anchorEl)}
                         onClose={handleCloseSubMenu}
                         anchorEl={anchorEl}
-                        sx={{
-                            bg: "black",
-                            bgColor: 'black',
-                            color: 'white'
-                        }}
+                        MenuListProps={{
+                            style: {
+                              backgroundColor: "#15202b",
+                              padding: 0,
+                            },
+                          }}
+                        
+                        
                     >
                         {options.map((option) => (
-                            <MenuItem key={option.link} onClick={handleCloseSubMenu} className='mb-1'>
+                            <MenuItem key={option.link} onClick={handleCloseSubMenu} className='p-1 text-white'>
                                 <div className=''>
                                     {option.icon}
                                 </div>

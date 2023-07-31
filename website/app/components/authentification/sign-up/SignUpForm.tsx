@@ -20,22 +20,28 @@ interface SignUpProps {
 const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
   const dispatch = useDispatch();
 
-
   // Handle form submission
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = {
-      firstName: (event.target as any).firstName.value,
-      lastName: (event.target as any).lastName.value,
-      email: (event.target as any).email.value,
-      password: (event.target as any).password.value,
-    };
-    dispatch(updateSignUpFormData(formData));
-    onClose()
-    console.log(formData)
-    
-  }
+  const handleSubmit = (username: string, password: string) => {
+    const formData = new FormData()
 
+    formData.append('username', username)
+    formData.append('password', password)
+
+    fetch('http://localhost:8000/auth/signup/', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch(updateSignUpFormData(data.formData));
+        console.log('Success!', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    onClose();
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -44,14 +50,24 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
         <Typography component="h1" variant="h5" className="mt-8 mb-5 text-center">
           Sign up for Twitter
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e: React.SyntheticEvent) => {
+          e.preventDefault()
+          const target = e.target as typeof e.target & {
+            username: { value: string };
+            password: { value: string }
+          }
+          const username = target.username?.value
+          const password = target.password?.value
+          if (username && password){
+            handleSubmit(username, password)
+          }
+        }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
-                required
                 fullWidth
                 id="firstName"
                 label="First Name"
@@ -61,7 +77,6 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="lastName"
                 label="Last Name"
@@ -69,10 +84,19 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
                 autoComplete="lname"
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                variant="outlined"
+             
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="email"
                 label="Email Address"
@@ -117,6 +141,5 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
     </Container>
   );
 };
-
 
 export default SignUpForm;

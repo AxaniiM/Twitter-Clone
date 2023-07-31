@@ -74,6 +74,7 @@ const AddPost = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        borderRadius: 0,
       }}
     >
       <Box> 
