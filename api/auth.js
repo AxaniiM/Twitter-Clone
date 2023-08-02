@@ -1,16 +1,18 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 const { createUser, getUserByUsername } = require('./database');
 
 const router = express.Router();
+const upload = multer();
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', upload.none(), async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    createUser(username, password, (err) => {
-      console.log("create user")
+    createUser(username, password, (err) => {``
+
       if (err) {
         console.error(err);
         res.status(500).json({ message: 'Registration error.' });
