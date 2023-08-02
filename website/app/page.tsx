@@ -11,7 +11,7 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-row">
+    <div className="">
       <main className=" flex flex-col w-[600px] h-full min-h-screen border-r-[0.5px] border-gray-600">
         <HomeHeader />
         <AddPost />

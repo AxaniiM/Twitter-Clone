@@ -58,9 +58,12 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
       >
         <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
       </Menu>
-      <CardContent className="flex space-x-2" >
-        <Avatar alt={username} />
+      <CardContent className="flex flex-col space-x-2" >
+       
+ 
           <div className="flex flex-row items-center justify-start">
+
+        <Avatar alt={username} />
             <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
               {username}
             </Typography>
