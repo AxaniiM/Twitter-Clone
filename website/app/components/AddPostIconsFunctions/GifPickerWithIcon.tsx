@@ -67,7 +67,7 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
       <Dialog open={open} onClose={handleClose} sx={{ "& .MuiPaper-root": { backgroundColor: '#15202b' } }}>
         <DialogContent >
           <TextField
-            placeholder="Search GIFs"
+            placeholder="Search GIFsn"
             value={searchTerm}
             onChange={handleSearchTermChange}
             fullWidth
