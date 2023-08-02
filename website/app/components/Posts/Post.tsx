@@ -27,8 +27,8 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
   return (
     <Card className="mb-4 bg-[#15202b] text-white" key={id} sx={{
       borderRadius: 0,
-      borderColor: "#404a58", // Set the border color to gray
-      borderBottomWidth: "0.5px", // Set the border width
+      borderColor: "#404a58",
+      borderBottomWidth: "0.5px",
       boxShadow: 0,
 
     }}>
@@ -58,9 +58,7 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
       >
         <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
       </Menu>
-      <CardContent className="flex flex-col space-x-2" >
-       
- 
+      <CardContent className="flex flex-col space-x-2">
           <div className="flex flex-row items-center justify-start mb-3">
         <Avatar alt={username} />
             <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
