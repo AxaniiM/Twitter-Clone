@@ -61,8 +61,7 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
       <CardContent className="flex flex-col space-x-2" >
        
  
-          <div className="flex flex-row items-center justify-start">
-
+          <div className="flex flex-row items-center justify-start mb-3">
         <Avatar alt={username} />
             <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
               {username}
