@@ -26,7 +26,7 @@ router.post('/signup', upload.none(), async (req, res) => {
   }
 });
 
-router.post('/signin', async (req, res) => {
+router.post('/signin', upload.none(), async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -35,7 +35,7 @@ router.post('/signin', async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Authentication error.' });
       } else if (!row) {
-        res.status(401).json({ message: 'Incorrect username or password.' });
+        res.status(401).json({ message: 'Incorrect username.' });
       } else {
         const passwordMatch = await bcrypt.compare(password, row.password);
         if (!passwordMatch) {

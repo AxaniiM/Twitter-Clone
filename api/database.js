@@ -20,7 +20,21 @@ const getUserByUsername = (username, callback) => {
   db.get(query, [username], callback);
 };
 
+const getAllPosts = (callback) => {
+  const query = 'SELECT * FROM posts';
+  db.all(query, [], callback);
+};
+
+const createPost = (user_id, text, callback) => {
+  const query = 'INSERT INTO posts (user_id, date, text) VALUES (?, ?, ?)';
+  const currentDate = new Date().toISOString();
+
+  db.run(query, [user_id, currentDate, text], callback);
+};
+
 module.exports = {
   createUser,
   getUserByUsername,
+  getAllPosts,
+  createPost
 };
