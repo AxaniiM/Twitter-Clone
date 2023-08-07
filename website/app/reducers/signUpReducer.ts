@@ -1,4 +1,4 @@
-import FormState from "../interfaces/signUpInterface";
+import FormState from "../profile/interfaces/signUpInterface";
 
 // Define the action type
 type SignUpAction = {

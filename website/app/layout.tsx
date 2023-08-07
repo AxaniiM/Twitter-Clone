@@ -1,6 +1,6 @@
 import './globals.css'
 import NavBarWrapper from './components/navigation/NavBarWrapper';
-import { ReduxWrapperProvider } from './reducers/ReduxWrapper';
+import ReduxWrapperProvider from './components/wrappers/ReduxWrapper';
 
 export const metadata = {
   title: 'Twitter',
@@ -14,15 +14,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ReduxWrapperProvider>
         <body className='bg-[#15202b] text-white flex flex-row'>
+          <ReduxWrapperProvider>
           <div className='flex float-left'>
             <NavBarWrapper />
           </div>
           {children}
+          </ReduxWrapperProvider>
         </body>
-      </ReduxWrapperProvider>
-
     </html>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Button, Input, InputAdornment } from "@mui/material";
 import {
   Button,
   Input,
@@ -14,22 +13,21 @@ import PollIcon from "@mui/icons-material/Poll";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ImagePickerWithIcon from "./AddPostIconsFunctions/ImagePicker";
-import GifPickerWithIcon from "./AddPostIconsFunctions/GifPickerWithIcon";
-import { useDispatch } from "react-redux";
-import { addPost } from "../actions/postActions";
+import ImagePickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/ImagePicker";
+import GifPickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/GifPickerWithIcon";
+import { useAddPostMutation } from "@/app/api/postApiSlice";
+import Image from "next/image";
 
 const AddPost = () => {
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedGif, setSelectedGif] = useState(null);
 
-  const dispatch = useDispatch();
-
   const maxLength = 280;
+  const [addPostMutation, { isLoading, isError, error }] = useAddPostMutation();
 
-  const handleTweet = () => {
-    console.log("Tweet button clicked")
+  const handleTweet = async () => {
+    console.log("Tweet button clicked");
     const newPost = {
       username: "username",
       id: Date.now(),
@@ -38,12 +36,19 @@ const AddPost = () => {
       image: selectedImage,
       gif: selectedGif,
     };
+    console.log(newPost)
 
-    dispatch(addPost(newPost));
-    setInput("");
-    setSelectedGif(null);
-    setSelectedImage(null);
+    try {
+      const result = await addPostMutation(newPost);
+      console.log("New post added:", result);
+      setInput("");
+      setSelectedGif(null);
+      setSelectedImage(null);
+    } catch (error) {
+      console.error("Error adding post:", error);
+    }
   };
+
 
   const handleImageSelect = (file: any) => {
     setSelectedImage(file);
@@ -110,14 +115,14 @@ const AddPost = () => {
           }
         />
         {selectedImage && (
-          <img
+          <Image
             src={URL.createObjectURL(selectedImage)}
             alt="Selected Image"
             className="my-2 mr-3"
           />
         )}
         {selectedGif && (
-          <img
+          <Image
             src={selectedGif}
             alt="Selected GIF"
             className="my-2 mr-3"

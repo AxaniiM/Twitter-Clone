@@ -1,4 +1,4 @@
-import PostProps from "../interfaces/postInterface";
+import PostProps from "../profile/interfaces/postInterface";
 import { createAction } from "@reduxjs/toolkit";
 
 export const addPost = createAction<PostProps>("ADD_POST");

@@ -40,7 +40,7 @@ const AuthDialogueBox: React.FC<AuthDialogueBoxProps> = ({ onClose }) => {
                 }}
                    />
                 <ThemeProvider theme={theme}>
-                    {showSignIn ? <SignInForm onSwitchToSignUp={handleSwitchToSignUp} /> : <SignUpForm onSwitchToSignIn={handleSwitchToSignIn} onClose={onClose} />}
+                    {showSignIn ? <SignInForm onSwitchToSignUp={handleSwitchToSignUp} onClose={onClose}/> : <SignUpForm onSwitchToSignIn={handleSwitchToSignIn} onClose={onClose} />}
                 </ThemeProvider>
             </Container>
         </div>

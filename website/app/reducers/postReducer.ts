@@ -1,6 +1,6 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { addPost, deletePost } from "../actions/postActions";
-import PostProps from '../interfaces/postInterface';
+import PostProps from '../profile/interfaces/postInterface';
 
 const initialPostState: PostProps[] = [];
 

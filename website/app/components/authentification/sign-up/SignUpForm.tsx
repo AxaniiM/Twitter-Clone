@@ -1,6 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { updateSignUpFormData } from '@/app/actions/signUpActions';
+
 import {
   Button,
   CssBaseline,
@@ -9,33 +8,35 @@ import {
   Typography,
   Container
 } from "@mui/material";
+import { useSignUpMutation } from '@/app/api/postApiSlice';
 
 interface SignUpProps {
   onSwitchToSignIn: () => void;
   onClose: () => void;
 }
 const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
-  const dispatch = useDispatch();
+
+  const [signUpMutation] = useSignUpMutation()
 
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    try {
-      const response = await fetch('http://localhost:8000/auth/signup/', {
-        method: 'POST',
-        body: formData,
-      })
-      console.log(response)
-      if (!response.ok) {
-        throw new Error("Failed to sign up. Check all your credentials.")
-      }
+    // event.preventDefault()
 
-      const data = await response.json()
-      dispatch(updateSignUpFormData(data))
-      console.log('Success', data)
+    const formData = new FormData(event.currentTarget.value)
+
+    const signUpData = {
+      username: formData.get('username') as string ?? '',
+      password: formData.get('password') as string ?? '',
+    };
+    
+  console.log(signUpData)
+    console.log(formData)
+    try {
+      const data  = await (signUpMutation as any).useMutation(signUpData)
+      console.log("Success", data)
     } catch (error) {
       console.log('Error!', error)
+      throw new Error("Failed to sign up. Check your credentials.");
     }
     onClose()
   }

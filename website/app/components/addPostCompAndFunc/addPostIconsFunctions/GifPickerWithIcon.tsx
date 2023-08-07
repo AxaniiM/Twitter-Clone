@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import GifBoxIcon from '@mui/icons-material/GifBox';
 import { IconButton } from "@mui/material";
+import Image from "next/image";
 
 interface Gif {
   id: string;
@@ -86,7 +87,7 @@ const GifPickerWithIcon = ({ onGifSelect }: { onGifSelect: (gifUrl: string) => v
             ) : (
               gifList.map((gif) => (
                 <Grid item xs={6} sm={4} md={3} key={gif.id}>
-                  <img
+                  <Image
                     src={gif.images.fixed_height.url}
                     alt="GIF"
                     onClick={() => handleGifSelect(gif.images.fixed_height.url)}

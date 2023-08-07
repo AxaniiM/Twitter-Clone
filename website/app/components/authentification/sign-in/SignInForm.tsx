@@ -5,9 +5,7 @@ import {
   Grid,
   Box,
 } from '@mui/material'
-import { useDispatch } from 'react-redux';
-import { updateSignInFormData } from '@/app/actions/signInActions';
-
+import { useSignInMutation } from '@/app/api/postApiSlice';
 interface SignInProps {
   onSwitchToSignUp: () => void;
   onClose: () => void;
@@ -15,29 +13,27 @@ interface SignInProps {
 
 export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose }) => {
 
-  const dispatch = useDispatch()
+  const [signInMutation]: any = useSignInMutation()
+  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
+    console.log(await signInMutation())
+
     const formData = new FormData(event.currentTarget);
-
+    const signInData = {
+      username: formData.get('username') as string,
+      password: formData.get('password') as string,
+    };
     try {
-      const response = await fetch('http://localhost:8000/auth/signin/', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to sign in');
-      }
-
-      const data = await response.json();
-      dispatch(updateSignInFormData(data));
+      const data = await signInMutation.mutate(signInData);
       console.log('Success!', data);
+      localStorage.setItem('jwtToken', data.token);
     } catch (error) {
       console.error('Error:', error);
+      throw new Error("Failed to sign in. Check your credentials.");
     }
-
     onClose();
   };
 
@@ -50,7 +46,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
         alignItems: 'center',
       }}
     >
-      <h1 className='text-2xl'>Sign In to Twiter</h1>
+      <h1 className='text-2xl'>Sign In to Twitter</h1>
       <form noValidate onSubmit={handleSubmit}>
         <>
           <TextField
@@ -73,12 +69,12 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
             autoComplete="current-password"
             InputProps={{
               sx: {
-                  "& input": {
-                      color: 'gray'
-                  }
+                "& input": {
+                  color: 'gray'
+                }
               }
-          }}
-          placeholder="Password"
+            }}
+            placeholder="Password"
           />
           <Button
             type="submit"
@@ -96,9 +92,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
               </Link>
             </Grid>
             <Grid item>
-              <span onClick={onSwitchToSignUp} className="cursor-pointer"> Don't have an account?Sign up</span>
-
-
+              <span onClick={onSwitchToSignUp} className="cursor-pointer"> Don&apos;t have an account?Sign up</span>
             </Grid>
           </Grid>
         </>

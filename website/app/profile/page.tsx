@@ -3,9 +3,9 @@ import { IconButton, Typography, Avatar, Button } from '@mui/material'
 import React from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from 'next/link';
+import Image from 'next/image';
 import moment from 'moment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { useState } from 'react';
 import ProfileHeaderCategories from '../components/ProfileHeaderCategories';
 import store from '../store';
 
@@ -41,7 +41,7 @@ const Profile = () => {
                 </Link>
                 <Typography variant="h6" className='font-bold'>{`${data.firstName} ${data.lastName}`}</Typography>
             </div>
-            <img src={backgroundImageUrl} className='h-44 w-full'></img>
+            <Image src={backgroundImageUrl} alt="Background Profile pic" className='h-44 w-full'/>
             <div className='flex justify-between'>
                 <Avatar sx={{
                     width: 120,

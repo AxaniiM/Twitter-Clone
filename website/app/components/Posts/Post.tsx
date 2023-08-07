@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Card, CardContent, Typography, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
-import PostProps from "@/app/interfaces/postInterface";
+import PostProps from "@/app/profile/interfaces/postInterface";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Image from "next/image";
 
 interface PostComponentProps extends PostProps {
   onDelete: () => void;
@@ -72,8 +73,8 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
             </Typography>
           </div>
           <Typography variant="body1">{text}</Typography>
-          {image && <img src={URL.createObjectURL(image)} alt="Selected Image" />}
-          {gif && <img src={gif} alt="Selected GIF" />}
+          {image && <Image src={URL.createObjectURL(image)} alt="Selected Image" />}
+          {gif && <Image src={gif} alt="Selected GIF" />}
       </CardContent>
     </Card>
   );

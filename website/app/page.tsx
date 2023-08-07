@@ -7,7 +7,7 @@ import AuthContainer from "./components/authentification/AuthContainer"
 
 
 
-export default function Home() {
+export default function Main() {
 
 
   return (
