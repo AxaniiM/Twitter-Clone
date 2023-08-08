@@ -15,7 +15,7 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ImagePickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/ImagePicker";
 import GifPickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/GifPickerWithIcon";
-import { useAddPostMutation } from "@/app/api/postApiSlice";
+import { useAddPostMutation } from "@/app/api(GraphQL)/postApiSlice";
 import Image from "next/image";
 
 const AddPost = () => {

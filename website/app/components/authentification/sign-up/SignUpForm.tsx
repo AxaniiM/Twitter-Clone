@@ -8,7 +8,7 @@ import {
   Typography,
   Container
 } from "@mui/material";
-import { useSignUpMutation } from '@/app/api/postApiSlice';
+import axios from 'axios';
 
 interface SignUpProps {
   onSwitchToSignIn: () => void;
@@ -16,28 +16,29 @@ interface SignUpProps {
 }
 const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
 
-  const [signUpMutation] = useSignUpMutation()
-
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // event.preventDefault()
+    event.preventDefault()
 
-    const formData = new FormData(event.currentTarget.value)
+    const formData = new FormData(event.currentTarget);
 
     const signUpData = {
       username: formData.get('username') as string ?? '',
       password: formData.get('password') as string ?? '',
     };
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
     
   console.log(signUpData)
-    console.log(formData)
-    try {
-      const data  = await (signUpMutation as any).useMutation(signUpData)
-      console.log("Success", data)
-    } catch (error) {
-      console.log('Error!', error)
-      throw new Error("Failed to sign up. Check your credentials.");
-    }
+  try {
+    const {data} = await axios.post("http://localhost:8000/auth/signup/",signUpData, config)
+    console.log("Success", data)
+  } catch (error) {
+    throw new Error("Faled to Sign Up. Check the credentials.")
+  }
     onClose()
   }
   return (

@@ -5,7 +5,7 @@ import {
   Grid,
   Box,
 } from '@mui/material'
-import { useSignInMutation } from '@/app/api/postApiSlice';
+import axios from 'axios';
 interface SignInProps {
   onSwitchToSignUp: () => void;
   onClose: () => void;
@@ -13,23 +13,23 @@ interface SignInProps {
 
 export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose }) => {
 
-  const [signInMutation]: any = useSignInMutation()
-  
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
-    console.log(await signInMutation())
 
     const formData = new FormData(event.currentTarget);
     const signInData = {
       username: formData.get('username') as string,
       password: formData.get('password') as string,
     };
+    const config = {
+      headers: {
+        "Content_Type": "application/json"
+      }
+    }
     try {
-      const data = await signInMutation.mutate(signInData);
-      console.log('Success!', data);
+      const {data} = await axios.post("http://localhost:8000/auth/signin/",signInData, config)
       localStorage.setItem('jwtToken', data.token);
+      console.log("Success", data)
     } catch (error) {
       console.error('Error:', error);
       throw new Error("Failed to sign in. Check your credentials.");
@@ -53,11 +53,11 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
             margin="normal"
             required
             fullWidth
-            id="email"
-            name="email"
-            autoComplete="email"
+            id="username"
+            name="username"
+            autoComplete="username"
             autoFocus
-            label="Email"
+            label="Username"
           />
           <TextField
             margin="normal"

@@ -1,8 +1,10 @@
 import { createReducer, PayloadAction } from "@reduxjs/toolkit";
 import { addPost, deletePost } from "../actions/postActions";
-import PostProps from '../profile/interfaces/postInterface';
+import PostProps from "../interfaces/postInterface";;
 
 const initialPostState: PostProps[] = [];
+
+
 
 const postReducer = createReducer(initialPostState, (builder) => {
   builder
@@ -11,10 +13,10 @@ const postReducer = createReducer(initialPostState, (builder) => {
     })
     .addCase(deletePost, (state, action: PayloadAction<number>) => {
       const postId = action.payload;
-      // Filter out the post with the provided ID and create a new posts array
       const updatedPosts = state.filter((post) => post.id !== postId);
       return updatedPosts;
-    });
+    })
+    
 });
 
 export default postReducer;

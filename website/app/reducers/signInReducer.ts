@@ -1,6 +1,6 @@
 
 import { UPDATE_SIGNIN_FORM_DATA } from '../actions/signInActions';
-import FormState from '../profile/interfaces/signUpInterface';
+import FormState from '../interfaces/signUpInterface';
 
 const initialState = {
   formData: null, // Initial state for the form data

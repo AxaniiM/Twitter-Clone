@@ -1,7 +1,7 @@
 'use client'
 import { Provider } from "react-redux";
 import store from "../../store";
-import { apiSlice } from "../../api/postApiSlice";
+import { apiSlice } from "../../api(GraphQL)/postApiSlice";
 import React, { ReactNode } from 'react'
 import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
