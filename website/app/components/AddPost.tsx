@@ -15,31 +15,49 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ImagePickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/ImagePicker";
 import GifPickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/GifPickerWithIcon";
-import { useAddPostMutation } from "@/app/api(GraphQL)/postApiSlice";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { addPost } from "../features/postSlice";
 
 const AddPost = () => {
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedGif, setSelectedGif] = useState(null);
+  const dispatch = useDispatch()
+
 
   const maxLength = 280;
-  const [addPostMutation, { isLoading, isError, error }] = useAddPostMutation();
+
+
 
   const handleTweet = async () => {
     console.log("Tweet button clicked");
-    const newPost = {
-      username: "username",
-      id: Date.now(),
-      text: input,
-      date: new Date().toDateString(),
-      image: selectedImage,
-      gif: selectedGif,
-    };
-    console.log(newPost)
-
     try {
-      const result = await addPostMutation(newPost);
+      const token = localStorage.getItem('jwtToken');
+      const userId = localStorage.getItem('id'); // Make sure to use the correct key
+      if (!token || !userId) {
+        // Handle the case where the token or userId is missing
+        console.error(`${token} token or ${userId} is missing`);
+        return;
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+  
+      const newPost = {
+        userId: userId,
+        id: Date.now(),
+        text: input,
+      };
+  
+      const result = await axios.post("http://localhost:8000/protected/addPost", newPost, config);
+  
+      dispatch(addPost(newPost));
+  
       console.log("New post added:", result);
       setInput("");
       setSelectedGif(null);
@@ -48,7 +66,7 @@ const AddPost = () => {
       console.error("Error adding post:", error);
     }
   };
-
+    
 
   const handleImageSelect = (file: any) => {
     setSelectedImage(file);

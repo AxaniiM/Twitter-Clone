@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Card, CardContent, Typography, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
-import PostProps from "@/app/profile/interfaces/postInterface";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import PostProps from "@/app/interfaces/postInterface";
 import Image from "next/image";
+import { MoreHorizOutlined } from "@mui/icons-material";
 
 interface PostComponentProps extends PostProps {
   onDelete: () => void;
 }
 
-const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, gif, onDelete }) => {
+const Post: React.FC<PostComponentProps> = ({text, id, onDelete }) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // managing the submenu with Delete button
 
@@ -34,7 +34,7 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
 
     }}>
       <IconButton className="text-white float-right" onClick={handleOpenPostMenu}>
-        <MoreHorizIcon />
+        <MoreHorizOutlined />
       </IconButton>
       <Menu
         open={Boolean(anchorEl)}
@@ -61,8 +61,8 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
       </Menu>
       <CardContent className="flex flex-col space-x-2">
           <div className="flex flex-row items-center justify-start mb-3">
-        <Avatar alt={username} />
-            <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
+        <Avatar  />
+            {/* <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
               {username}
             </Typography>
             <Typography variant="h6" component="div" className="text-slate-600" sx={{ marginLeft: "6px", fontSize: "16px" }}>
@@ -70,11 +70,11 @@ const Post: React.FC<PostComponentProps> = ({ username, text, date, id, image, g
             </Typography>
             <Typography variant="body2" sx={{ color: "white", marginLeft: "5px", fontSize: "13px" }}>
               {date}
-            </Typography>
+            </Typography> */}
           </div>
           <Typography variant="body1">{text}</Typography>
-          {image && <Image src={URL.createObjectURL(image)} alt="Selected Image" />}
-          {gif && <Image src={gif} alt="Selected GIF" />}
+          {/* {image && <Image src={URL.createObjectURL(image)} alt="Selected Image" />}
+          {gif && <Image src={gif} alt="Selected GIF" />} */}
       </CardContent>
     </Card>
   );

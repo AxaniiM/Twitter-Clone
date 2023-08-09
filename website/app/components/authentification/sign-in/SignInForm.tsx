@@ -29,6 +29,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
     try {
       const {data} = await axios.post("http://localhost:8000/auth/signin/",signInData, config)
       localStorage.setItem('jwtToken', data.token);
+      localStorage.setItem('id', data.id);
       console.log("Success", data)
     } catch (error) {
       console.error('Error:', error);

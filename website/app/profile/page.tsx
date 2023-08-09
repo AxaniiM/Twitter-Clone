@@ -7,7 +7,6 @@ import Image from 'next/image';
 import moment from 'moment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ProfileHeaderCategories from '../components/ProfileHeaderCategories';
-import store from '../store';
 
 let registrationDate = moment().format('[Joined] MMMM Do YYYY').toString()
 
@@ -18,8 +17,6 @@ const data = {
     registrationDate: registrationDate
 }
 const backgroundImageUrl = "https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-255379.jpg&fm=jpg"
-
-console.log(store.getState())
 
 const Profile = () => {
 
@@ -41,7 +38,7 @@ const Profile = () => {
                 </Link>
                 <Typography variant="h6" className='font-bold'>{`${data.firstName} ${data.lastName}`}</Typography>
             </div>
-            <Image src={backgroundImageUrl} alt="Background Profile pic" className='h-44 w-full'/>
+            <Image src={backgroundImageUrl} alt="Background Profile pic" width={500} height={500}/>
             <div className='flex justify-between'>
                 <Avatar sx={{
                     width: 120,
