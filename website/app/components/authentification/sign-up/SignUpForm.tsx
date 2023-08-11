@@ -19,7 +19,7 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
   // Handle form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
+    
     const formData = new FormData(event.currentTarget);
 
     const signUpData = {
@@ -39,7 +39,7 @@ const SignUpForm: React.FC<SignUpProps> = ({ onSwitchToSignIn, onClose }) => {
   } catch (error) {
     throw new Error("Faled to Sign Up. Check the credentials.")
   }
-    onClose()
+  onSwitchToSignIn()
   }
   return (
     <Container component="main" maxWidth="xs">

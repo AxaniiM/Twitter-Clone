@@ -1,7 +1,7 @@
 'use client'
 import AddPost from "./components/AddPost"
 import HomeHeader from "./components/HomeHeader"
-import PostList from "./components/Posts/PostList"
+import PostList from "./components/posts/PostList"
 import AuthContainer from "./components/authentification/AuthContainer"
 
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import PostProps from "../interfaces/postInterface";
+import PostProps from "../../interfaces/postInterface";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
@@ -46,7 +46,7 @@ const postSlice = createSlice({
     },
     deletePost: (state, action: PayloadAction<number>) => {
       const postId = action.payload;
-      state.posts = state.posts.filter((post) => post.id !== postId);
+      state.posts = state.posts.filter((post) => post.user_id !== postId);
     },
   },
   extraReducers: (builder) => {

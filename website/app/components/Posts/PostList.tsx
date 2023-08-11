@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost } from "@/app/actions/postActions";
-import { fetchPosts } from "@/app/features/postSlice";
-import PostProps from "@/app/interfaces/postInterface";
+import { fetchPosts } from "@/app/store/slices/postSlice";
+import { AllPostsFetched } from "@/app/interfaces/postInterface";
 import Post from "./Post";
-import { allPosts } from "@/app/features/postSlice";
+import { allPosts } from "@/app/store/slices/postSlice";
 
 const PostList: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,15 +22,15 @@ const PostList: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleDeletePost = (postId: number) => {
-    // Dispatch the deletePost action with the postId
-    dispatch(deletePost(postId));
-  };
+  // const handleDeletePost = (postId: number) => {
+  //   // Dispatch the deletePost action with the postId
+  //   dispatch(deletePost(postId));
+  // };
 
   return (
     <div>
-      {postSlice.posts.map((post: PostProps) => (
-        <Post key={post.id} onDelete={() => handleDeletePost(post.id)} {...post} />
+      {postSlice.posts.map((post: AllPostsFetched) => (
+        <Post key={post.id} {...post} />
       ))}
     </div>
   );

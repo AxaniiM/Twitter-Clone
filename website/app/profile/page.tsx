@@ -7,18 +7,22 @@ import Image from 'next/image';
 import moment from 'moment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ProfileHeaderCategories from '../components/ProfileHeaderCategories';
+import { selectAuthToken,selectAuthUser } from '../store/selectors/authSelectors';
+import { useSelector } from 'react-redux';
+
+
 
 let registrationDate = moment().format('[Joined] MMMM Do YYYY').toString()
 
-const data = {
-    firstName: "Maxim",
-    lastName: "Axanii",
-    username: "@Queshnyan",
-    registrationDate: registrationDate
-}
+
+
 const backgroundImageUrl = "https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-255379.jpg&fm=jpg"
 
 const Profile = () => {
+    const username = useSelector(selectAuthUser);
+    const token = useSelector(selectAuthUser)
+
+    console.log(username, token)
 
     return (
         <main className='border-r-[0.5px] border-r-gray-600 w-[600px] max-w-[650px]'>
@@ -36,9 +40,11 @@ const Profile = () => {
 
                     </IconButton>
                 </Link>
-                <Typography variant="h6" className='font-bold'>{`${data.firstName} ${data.lastName}`}</Typography>
+                <Typography variant="h6" className='font-bold'>
+                    {username}
+                </Typography>
             </div>
-            <Image src={backgroundImageUrl} alt="Background Profile pic" width={500} height={500}/>
+            <Image src={backgroundImageUrl} alt="Background Profile pic" width={500} height={500} />
             <div className='flex justify-between'>
                 <Avatar sx={{
                     width: 120,
@@ -60,14 +66,14 @@ const Profile = () => {
                 }}
             >Edit profile</Button>
             <div className='flex flex-col mt-16'>
-                <span className='px-4 font-bold text-xl'>{`${data.firstName} ${data.lastName}`}</span>
-                <span className='text-gray-400 text-base px-4'>{data.username}</span>
+                <span className='px-4 font-bold text-xl'>{`Your name`}</span>
+                <span className='text-gray-400 text-base px-4'>{username}</span>
                 <div className='text-base text-gray-400 pt-4 px-4 mb-4'>
                     <CalendarMonthIcon sx={{
                         fontSize: 'medium',
                         marginRight: 1,
                     }} />
-                    {data.registrationDate}
+                    {registrationDate}
                 </div>
             </div>
             <div className='border-b-[0.5px] border-b-slate-500'>

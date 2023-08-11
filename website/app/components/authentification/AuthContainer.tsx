@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import AuthDialogueBox from './AuthDialogueBox';
+import { toggleShowSignIn } from '@/app/store/slices/authSlice';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { selectAuthToken, selectShowSignIn } from '@/app/store/selectors/authSelectors';
 
 const AuthContainer = () => {
-    const [isDialogueOpen, setIsDialogueOpen] = useState(false);
-
-    const handleDialogueOpen = () => {
-        setIsDialogueOpen(true);
-    };
+    const token = useSelector(selectAuthToken)
+    const dispatch = useDispatch()
+    const signInState = useSelector(selectShowSignIn)
 
     const handleDialogueClose = () => {
-        setIsDialogueOpen(false);
+        dispatch(toggleShowSignIn())
     };
 
     return (
         <>
-            <Button
-                variant="contained"
-                onClick={handleDialogueOpen}
-                className="rounded-full bg-white text-black hover:bg-slate-300 h-10 mt-2 ml-2"
-            >
-                Sign In
-            </Button>
-            {isDialogueOpen && <AuthDialogueBox onClose={handleDialogueClose} />}
+            {signInState && <AuthDialogueBox onClose={handleDialogueClose} />}
         </>
     );
 };

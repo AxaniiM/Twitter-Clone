@@ -1,4 +1,7 @@
 export default interface PostProps {
-    id: number;
-    text: string;
+  user_id?: number | string,
+    text?: string;
   }
+export interface AllPostsFetched extends PostProps {
+  id?: number
+}

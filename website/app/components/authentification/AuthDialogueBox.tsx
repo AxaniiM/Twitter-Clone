@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton, Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import SignInForm from './sign-in/SignInForm';
 import SignUpForm from './sign-up/SignUpForm';
 import theme from '@/app/themes'
@@ -11,27 +10,24 @@ interface AuthDialogueBoxProps {
 }
 
 const AuthDialogueBox: React.FC<AuthDialogueBoxProps> = ({ onClose }) => {
-    const [showSignIn, setShowSignIn] = useState(true);
+    const [signIn, setSignIn] = useState(true);
 
 
     const handleSwitchToSignIn = () => {
-        setShowSignIn(true);
+        setSignIn(true);
     };
 
     const handleSwitchToSignUp = () => {
-        setShowSignIn(false);
+        setSignIn(false);
     };
 
 
 
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style={{ zIndex: 9999 }}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-100" style={{ zIndex: 9999 }}>
             <Container component="main" maxWidth="xs" className="border-[0.5px] h-[600px] rounded-xl bg-[#2C3640]">
                 <CssBaseline />
-                <IconButton size="small" className="rounded-full w-8 float-left text-white hover:bg-slate-600 mt-4" onClick={onClose}>
-                    <CloseIcon />
-                </IconButton>
                 <Twitter 
                 fontSize='large'
                 sx={{
@@ -40,7 +36,7 @@ const AuthDialogueBox: React.FC<AuthDialogueBoxProps> = ({ onClose }) => {
                 }}
                    />
                 <ThemeProvider theme={theme}>
-                    {showSignIn ? <SignInForm onSwitchToSignUp={handleSwitchToSignUp} onClose={onClose}/> : <SignUpForm onSwitchToSignIn={handleSwitchToSignIn} onClose={onClose} />}
+                    {signIn ? <SignInForm onSwitchToSignUp={handleSwitchToSignUp} onClose={onClose}/> : <SignUpForm onSwitchToSignIn={handleSwitchToSignIn} onClose={onClose} />}
                 </ThemeProvider>
             </Container>
         </div>

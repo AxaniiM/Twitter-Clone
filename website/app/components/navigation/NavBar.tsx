@@ -25,10 +25,13 @@ import {
 } from "@mui/icons-material";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Link from 'next/link';
-
+import LogOut from "../LogOut";
+import {logout, toggleShowSignIn} from "@/app/store/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 function NavBar() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const dispatch = useDispatch()
 
     const options = [
         { link: 'Bookmarks', icon: <BookmarkBorderOutlined /> },
@@ -52,7 +55,13 @@ function NavBar() {
     const handleOpenSubMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-
+    const handleClick = () => {
+        dispatch(logout());
+        dispatch(toggleShowSignIn())
+        localStorage.removeItem('jwtToken'); 
+        localStorage.removeItem('username');// Clear the token from localStorage
+        console.log("Clicked", localStorage);
+    }
 
     return (
         <div className=" h-screen ml-[93px] mt-[11px]">
@@ -80,6 +89,7 @@ function NavBar() {
                 </Button>
                 <Button className="capitalize w-60 h-[52px] bg-blue-500 rounded-3xl text-white text-xl font-bold hover:bg-blue-600 mr-8">Tweet</Button>
                 <div className='mb-10'>
+                    <LogOut onClick={handleClick}/>
                     <Menu
                         id="long-menu"
                         open={Boolean(anchorEl)}
@@ -91,8 +101,6 @@ function NavBar() {
                               padding: 0,
                             },
                           }}
-                        
-                        
                     >
                         {options.map((option) => (
                             <MenuItem key={option.link} onClick={handleCloseSubMenu} className='p-1 text-white'>

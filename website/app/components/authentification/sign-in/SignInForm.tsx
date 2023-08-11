@@ -6,6 +6,9 @@ import {
   Box,
 } from '@mui/material'
 import axios from 'axios';
+import { setUsername, setToken } from '@/app/store/slices/authSlice';
+import { useDispatch, } from 'react-redux';
+
 interface SignInProps {
   onSwitchToSignUp: () => void;
   onClose: () => void;
@@ -13,12 +16,14 @@ interface SignInProps {
 
 export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose }) => {
 
+  const dispatch = useDispatch()
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const signInData = {
-      username: formData.get('username') as string,
+      username: formData.get('username') as string, 
       password: formData.get('password') as string,
     };
     const config = {
@@ -27,9 +32,13 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
       }
     }
     try {
-      const {data} = await axios.post("http://localhost:8000/auth/signin/",signInData, config)
+      const {data} = await axios.post("http://localhost:8000/auth/signin/",signInData, config);
+      dispatch(setUsername(data.username))
+      dispatch(setToken(data.token))
+
       localStorage.setItem('jwtToken', data.token);
-      localStorage.setItem('id', data.id);
+      localStorage.setItem('id', data.user.id);
+      localStorage.setItem('username', data.user.username)
       console.log("Success", data)
     } catch (error) {
       console.error('Error:', error);

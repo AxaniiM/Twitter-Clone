@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { Card, CardContent, Typography, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import PostProps from "@/app/interfaces/postInterface";
-import Image from "next/image";
 import { MoreHorizOutlined } from "@mui/icons-material";
 
-interface PostComponentProps extends PostProps {
-  onDelete: () => void;
-}
 
-const Post: React.FC<PostComponentProps> = ({text, id, onDelete }) => {
+
+const Post: React.FC<PostProps> = ({text, user_id }) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // managing the submenu with Delete button
 
@@ -20,13 +17,13 @@ const Post: React.FC<PostComponentProps> = ({text, id, onDelete }) => {
     setAnchorEl(null);
   }
 
-  const handleDeletePost = () => {
-    onDelete(); // comes from PostList
-    handleClosePostMenu();
-  }
+  // const handleDeletePost = () => {
+  //   onDelete(); // comes from PostList
+  //   handleClosePostMenu();
+  // }
 
   return (
-    <Card className="mb-4 bg-[#15202b] text-white" key={id} sx={{
+    <Card className="mb-4 bg-[#15202b] text-white" key={user_id} sx={{
       borderRadius: 0,
       borderColor: "#404a58",
       borderBottomWidth: "0.5px",
@@ -57,24 +54,13 @@ const Post: React.FC<PostComponentProps> = ({text, id, onDelete }) => {
           }
         }}
       >
-        <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
+        <MenuItem >Delete</MenuItem>
       </Menu>
       <CardContent className="flex flex-col space-x-2">
           <div className="flex flex-row items-center justify-start mb-3">
         <Avatar  />
-            {/* <Typography variant="h6" component="div" className="text-slate-600" sx={{ fontSize: "20px" }}>
-              {username}
-            </Typography>
-            <Typography variant="h6" component="div" className="text-slate-600" sx={{ marginLeft: "6px", fontSize: "16px" }}>
-              @{username}
-            </Typography>
-            <Typography variant="body2" sx={{ color: "white", marginLeft: "5px", fontSize: "13px" }}>
-              {date}
-            </Typography> */}
           </div>
           <Typography variant="body1">{text}</Typography>
-          {/* {image && <Image src={URL.createObjectURL(image)} alt="Selected Image" />}
-          {gif && <Image src={gif} alt="Selected GIF" />} */}
       </CardContent>
     </Card>
   );

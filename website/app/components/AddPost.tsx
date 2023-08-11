@@ -18,27 +18,30 @@ import GifPickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/GifPic
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { addPost } from "../features/postSlice";
+import { addPost } from "../store/slices/postSlice";
+import PostProps from "../interfaces/postInterface";
+import { Cookies } from "react-cookie";
 
 const AddPost = () => {
   const [input, setInput] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedGif, setSelectedGif] = useState(null);
   const dispatch = useDispatch()
-
+  const username = localStorage.getItem('username')
 
   const maxLength = 280;
-
 
 
   const handleTweet = async () => {
     console.log("Tweet button clicked");
     try {
-      const token = localStorage.getItem('jwtToken');
-      const userId = localStorage.getItem('id'); // Make sure to use the correct key
-      if (!token || !userId) {
+      const user_id = localStorage.getItem('id'); 
+      const token = localStorage.get('jwtToken');
+
+      console.log(user_id)
+      if (!token || !user_id) {
         // Handle the case where the token or userId is missing
-        console.error(`${token} token or ${userId} is missing`);
+        console.error(`${token} token or ${user_id} is missing`);
         return;
       }
 
@@ -48,20 +51,22 @@ const AddPost = () => {
         },
       };
   
-      const newPost = {
-        userId: userId,
-        id: Date.now(),
+      const newPost: PostProps = {
+        user_id: user_id, 
         text: input,
+        
       };
   
-      const result = await axios.post("http://localhost:8000/protected/addPost", newPost, config);
+       await axios.post("http://localhost:8000/protected/addPost", newPost, config);
   
       dispatch(addPost(newPost));
-  
-      console.log("New post added:", result);
+
       setInput("");
+
       setSelectedGif(null);
+
       setSelectedImage(null);
+      
     } catch (error) {
       console.error("Error adding post:", error);
     }
@@ -105,6 +110,7 @@ const AddPost = () => {
           className="bg-slate-400 rounded-full"
           sx={{ marginBottom: "1rem" }}
         />
+        <Typography variant="h6">{username}</Typography>
         <Input
           disableUnderline
           multiline
