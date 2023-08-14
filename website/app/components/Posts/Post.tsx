@@ -4,8 +4,9 @@ import PostProps from "@/app/interfaces/postInterface";
 import { MoreHorizOutlined } from "@mui/icons-material";
 
 
+const Post: React.FC<PostProps> = ({ text, user_id }) => {
 
-const Post: React.FC<PostProps> = ({text, user_id }) => {
+  const username = localStorage.getItem('username')
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // managing the submenu with Delete button
 
@@ -16,22 +17,26 @@ const Post: React.FC<PostProps> = ({text, user_id }) => {
   const handleClosePostMenu = () => {
     setAnchorEl(null);
   }
-
+  if (!username) {
+    return <div>Loading...</div>
+  }
   // const handleDeletePost = () => {
   //   onDelete(); // comes from PostList
   //   handleClosePostMenu();
   // }
 
   return (
-    <Card className="mb-4 bg-[#15202b] text-white" key={user_id} sx={{
+    <Card className="mb-1" key={user_id} sx={{
       borderRadius: 0,
       borderColor: "#404a58",
       borderBottomWidth: "0.5px",
       boxShadow: 0,
+      bgcolor: "#15202b",
+      color: "white"
 
     }}>
-      <IconButton className="text-white float-right" onClick={handleOpenPostMenu}>
-        <MoreHorizOutlined />
+      <IconButton onClick={handleOpenPostMenu} className="float-right">
+        <MoreHorizOutlined className="text-white" />
       </IconButton>
       <Menu
         open={Boolean(anchorEl)}
@@ -54,13 +59,23 @@ const Post: React.FC<PostProps> = ({text, user_id }) => {
           }
         }}
       >
-        <MenuItem >Delete</MenuItem>
+        <MenuItem>Delete</MenuItem>
       </Menu>
-      <CardContent className="flex flex-col space-x-2">
-          <div className="flex flex-row items-center justify-start mb-3">
-        <Avatar  />
-          </div>
-          <Typography variant="body1">{text}</Typography>
+      <CardContent className="flex flex-col space-x-12">
+        <div className="flex flex-row items-center justify-start mb-3">
+          <Avatar />
+          <Typography sx={{
+            marginLeft: "10px"
+
+          }}>
+            {username}
+          </Typography>
+        </div>
+        <Typography variant="body1"
+          sx={{
+          }}>
+          {text}
+        </Typography>
       </CardContent>
     </Card>
   );

@@ -13,14 +13,13 @@ import PollIcon from "@mui/icons-material/Poll";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ImagePickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/ImagePicker";
-import GifPickerWithIcon from "./addPostCompAndFunc/addPostIconsFunctions/GifPickerWithIcon";
+import ImagePickerWithIcon from "./addPost/addPostFunctions/ImagePicker";
+import GifPickerWithIcon from "./addPost/addPostFunctions/GifPickerWithIcon";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { addPost } from "../store/slices/postSlice";
 import PostProps from "../interfaces/postInterface";
-import { Cookies } from "react-cookie";
 
 const AddPost = () => {
   const [input, setInput] = useState("");
@@ -36,9 +35,7 @@ const AddPost = () => {
     console.log("Tweet button clicked");
     try {
       const user_id = localStorage.getItem('id'); 
-      const token = localStorage.get('jwtToken');
-
-      console.log(user_id)
+      const token = localStorage.getItem('jwtToken');
       if (!token || !user_id) {
         // Handle the case where the token or userId is missing
         console.error(`${token} token or ${user_id} is missing`);
@@ -106,11 +103,18 @@ const AddPost = () => {
       }}
     >
       <Box> 
+        <div className="flex flex-row">
         <Avatar
           className="bg-slate-400 rounded-full"
-          sx={{ marginBottom: "1rem" }}
+          sx={{ marginBottom: "1rem",
+                marginRight: "4px",
+        }}
         />
-        <Typography variant="h6">{username}</Typography>
+        <Typography variant="h6" sx={{
+          color: 'white',
+          marginTop: "5px"
+        }}>{username}</Typography>
+        </div>
         <Input
           disableUnderline
           multiline

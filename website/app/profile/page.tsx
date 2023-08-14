@@ -20,7 +20,7 @@ const backgroundImageUrl = "https://images.pexels.com/photos/255379/pexels-photo
 
 const Profile = () => {
     const username = useSelector(selectAuthUser);
-    const token = useSelector(selectAuthUser)
+    const token = useSelector(selectAuthToken)
 
     console.log(username, token)
 

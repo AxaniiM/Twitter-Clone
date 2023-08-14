@@ -4,10 +4,13 @@ import { fetchPosts } from "@/app/store/slices/postSlice";
 import { AllPostsFetched } from "@/app/interfaces/postInterface";
 import Post from "./Post";
 import { allPosts } from "@/app/store/slices/postSlice";
+import { selectAuthUser } from "@/app/store/selectors/authSelectors";
 
 const PostList: React.FC = () => {
   const dispatch = useDispatch();
-  const postSlice = useSelector(allPosts);
+  const posts = useSelector(allPosts);
+  const user = useSelector(selectAuthUser)
+  console.log(posts,user)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,7 +22,7 @@ const PostList: React.FC = () => {
       }
     };
 
-    fetchData();
+    fetchData()
   }, []);
 
   // const handleDeletePost = (postId: number) => {
@@ -29,7 +32,7 @@ const PostList: React.FC = () => {
 
   return (
     <div>
-      {postSlice.posts.map((post: AllPostsFetched) => (
+      {posts.posts.map((post: AllPostsFetched) => (
         <Post key={post.id} {...post} />
       ))}
     </div>

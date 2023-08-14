@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import AuthDialogueBox from './AuthDialogueBox';
 import { toggleShowSignIn } from '@/app/store/slices/authSlice';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { selectAuthToken, selectShowSignIn } from '@/app/store/selectors/authSelectors';
+import { selectShowSignIn } from '@/app/store/selectors/authSelectors';
+import { RootState } from '@/app/store/store';
 
 const AuthContainer = () => {
-    const token = useSelector(selectAuthToken)
-    const dispatch = useDispatch()
-    const signInState = useSelector(selectShowSignIn)
+    const dispatch = useDispatch();
+    const signInState = useSelector((state: RootState) => selectShowSignIn(state))// Pass the signInAuth state slice
 
     const handleDialogueClose = () => {
-        dispatch(toggleShowSignIn())
+        dispatch(toggleShowSignIn());
     };
 
     return (
@@ -22,3 +22,8 @@ const AuthContainer = () => {
 };
 
 export default AuthContainer;
+
+
+
+
+

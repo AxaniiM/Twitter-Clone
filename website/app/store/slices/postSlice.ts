@@ -10,7 +10,7 @@ const initialPostState: {
   error: string | null;
 } = {
   posts: [],
-  status: "idle",
+  status: "loading",
   error: null,
 };
 

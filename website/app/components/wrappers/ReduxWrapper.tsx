@@ -7,15 +7,15 @@ import { PersistGate } from "redux-persist/integration/react";
 
 const persistor = persistStore(store)
 
- const ReduxWrapperProvider = ({children}:{children:ReactNode}) => {
+const ReduxWrapperProvider = ({ children }: { children: ReactNode }) => {
   return (
-    
+
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-    {children}
-    </PersistGate>
+        {children}
+      </PersistGate>
     </Provider>
-    
+
   )
 }
 

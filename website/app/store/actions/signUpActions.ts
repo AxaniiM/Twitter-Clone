@@ -1,5 +1,4 @@
-import FormState from "../profile/interfaces/signUpInterface";
-
+import FormState from "@/app/interfaces/signUpInterface";
 // Define the action type
 export const UPDATE_SIGNUP_FORM_DATA = "UPDATE_SIGNUP_FORM_DATA";
 

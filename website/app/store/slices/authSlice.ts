@@ -1,9 +1,6 @@
-
 import { createSlice } from '@reduxjs/toolkit';
-import { createAction } from '@reduxjs/toolkit';
-export const rehydrateAuthState = createAction('auth/rehydrate');
 
-const authSlice = createSlice({
+const authReducer= createSlice({
   name: 'auth',
   initialState: {
     username: null,
@@ -15,17 +12,17 @@ const authSlice = createSlice({
       state.username = action.payload;
     },
     setToken: (state, action) => {
-      state.token = action.payload;
+       state.token = action.payload;
     },
     logout: (state) => {
       state.username = null;
       state.token = null;
     },
     toggleShowSignIn: (state) => {
+      console.log(state)
       state.showSignIn = !state.showSignIn
     }
-  },
+  }
 });
-
-export const { setUsername, setToken, logout, toggleShowSignIn } = authSlice.actions;
-export default authSlice.reducer;
+export const { setUsername, setToken, logout, toggleShowSignIn } = authReducer.actions;
+export default authReducer.reducer;

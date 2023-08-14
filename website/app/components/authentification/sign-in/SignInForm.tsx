@@ -35,6 +35,7 @@ export const SignInForm: React.FC<SignInProps> = ({ onSwitchToSignUp, onClose })
       const {data} = await axios.post("http://localhost:8000/auth/signin/",signInData, config);
       dispatch(setUsername(data.username))
       dispatch(setToken(data.token))
+ 
 
       localStorage.setItem('jwtToken', data.token);
       localStorage.setItem('id', data.user.id);

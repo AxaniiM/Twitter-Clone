@@ -60,6 +60,7 @@ function NavBar() {
         dispatch(toggleShowSignIn())
         localStorage.removeItem('jwtToken'); 
         localStorage.removeItem('username');// Clear the token from localStorage
+        localStorage.removeItem('id')
         console.log("Clicked", localStorage);
     }
 
@@ -70,7 +71,7 @@ function NavBar() {
             </Link>
             <div className='mt-4'>
                 <div className='font-bold'>
-                    <Link href="/home">
+                    <Link href="/">
                         <SidebarLink text="Home" Icon={HomeIcon} />
                     </Link>
                 </div>
