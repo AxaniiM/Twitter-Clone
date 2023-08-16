@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import { Card, CardContent, Typography, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import PostProps from "@/app/interfaces/postInterface";
 import { MoreHorizOutlined } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { deletePost } from "@/app/store/slices/postSlice";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { UsernameAuth } from "@/app/store/selectors/authSelectors";
 
+interface PostComponentProps extends PostProps {
+  id: number;
+}
 
-const Post: React.FC<PostProps> = ({ text, user_id }) => {
+const Post: React.FC<PostComponentProps> = ({ text, user_id, id }) => {
 
-  const username = localStorage.getItem('username')
-
+  const username = useSelector((state: UsernameAuth) => state.auth.username)
+  const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // managing the submenu with Delete button
+
+
 
   const handleOpenPostMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -20,10 +29,13 @@ const Post: React.FC<PostProps> = ({ text, user_id }) => {
   if (!username) {
     return <div>Loading...</div>
   }
-  // const handleDeletePost = () => {
-  //   onDelete(); // comes from PostList
-  //   handleClosePostMenu();
-  // }
+  const handleDeletePost = () => {
+
+    handleClosePostMenu();
+    if (typeof id === "number") {
+      dispatch(deletePost(id)); // Pass the user_id to the deletePost action creator
+    }
+  }
 
   return (
     <Card className="mb-1" key={user_id} sx={{
@@ -59,7 +71,7 @@ const Post: React.FC<PostProps> = ({ text, user_id }) => {
           }
         }}
       >
-        <MenuItem>Delete</MenuItem>
+        <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
       </Menu>
       <CardContent className="flex flex-col space-x-12">
         <div className="flex flex-row items-center justify-start mb-3">

@@ -9,18 +9,24 @@ const authReducer= createSlice({
   },
   reducers: {
     setUsername: (state, action) => {
+      console.log('Before set name:', state.username);
       state.username = action.payload;
+      console.log('After set name:', state.username);
     },
     setToken: (state, action) => {
-       state.token = action.payload;
+      console.log('Before setting token:', state.token);
+      state.token = action.payload;
+      console.log('After setting token:', state.token);
     },
     logout: (state) => {
       state.username = null;
       state.token = null;
+      localStorage.clear()
     },
     toggleShowSignIn: (state) => {
-      console.log(state)
+      console.log('Before toggle:', state.showSignIn);
       state.showSignIn = !state.showSignIn
+      console.log('After toggle:', state.showSignIn);
     }
   }
 });

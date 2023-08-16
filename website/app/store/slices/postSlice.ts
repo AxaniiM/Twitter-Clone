@@ -10,9 +10,10 @@ const initialPostState: {
   error: string | null;
 } = {
   posts: [],
-  status: "loading",
+  status: "idle",
   error: null,
 };
+
 
 export const fetchPosts = createAsyncThunk("protected/fetchPosts", async () => {
   try {
@@ -25,7 +26,6 @@ export const fetchPosts = createAsyncThunk("protected/fetchPosts", async () => {
         Authorization: `Bearer ${token}`
       }
     });
-
     if (response.status === 200) {
       return response.data.posts;
     } else {
@@ -36,7 +36,6 @@ export const fetchPosts = createAsyncThunk("protected/fetchPosts", async () => {
   }
 });
 
-
 const postSlice = createSlice({
   name: "posts",
   initialState: initialPostState,
@@ -46,14 +45,14 @@ const postSlice = createSlice({
     },
     deletePost: (state, action: PayloadAction<number>) => {
       const postId = action.payload;
-      state.posts = state.posts.filter((post) => post.user_id !== postId);
+      state.posts = state.posts.filter((post) => post.id !== postId);
+      console.log(state.posts)
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
         state.status = "loading";
-        console.log(state.posts)
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -61,7 +60,6 @@ const postSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
-        console.log(state.status);
       });
   },
 });

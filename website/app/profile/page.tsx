@@ -10,13 +10,9 @@ import ProfileHeaderCategories from '../components/ProfileHeaderCategories';
 import { selectAuthToken,selectAuthUser } from '../store/selectors/authSelectors';
 import { useSelector } from 'react-redux';
 
-
-
 let registrationDate = moment().format('[Joined] MMMM Do YYYY').toString()
 
-
-
-const backgroundImageUrl = "https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?cs=srgb&dl=pexels-miguel-%C3%A1-padri%C3%B1%C3%A1n-255379.jpg&fm=jpg"
+const backgroundImageUrl = "/"
 
 const Profile = () => {
     const username = useSelector(selectAuthUser);

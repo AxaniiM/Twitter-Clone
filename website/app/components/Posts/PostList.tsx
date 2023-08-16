@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "@/app/store/slices/postSlice";
@@ -10,7 +11,6 @@ const PostList: React.FC = () => {
   const dispatch = useDispatch();
   const posts = useSelector(allPosts);
   const user = useSelector(selectAuthUser)
-  console.log(posts,user)
 
   useEffect(() => {
     const fetchData = async () => {

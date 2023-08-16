@@ -1,5 +1,5 @@
+'use client'
 import { useState } from "react";
-
 
 const HomeHeader: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>('For you')

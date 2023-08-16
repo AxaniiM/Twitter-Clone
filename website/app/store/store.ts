@@ -1,3 +1,4 @@
+'use client'
 import { configureStore, combineReducers  } from "@reduxjs/toolkit";
 import postSlice from "./slices/postSlice";
 import signUpReducer from "./reducers/signUpReducer";

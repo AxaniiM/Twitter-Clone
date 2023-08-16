@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import SignInForm from './sign-in/SignInForm';
@@ -12,7 +13,6 @@ interface AuthDialogueBoxProps {
 const AuthDialogueBox: React.FC<AuthDialogueBoxProps> = ({ onClose }) => {
     const [signIn, setSignIn] = useState(true);
 
-
     const handleSwitchToSignIn = () => {
         setSignIn(true);
     };
@@ -20,9 +20,6 @@ const AuthDialogueBox: React.FC<AuthDialogueBoxProps> = ({ onClose }) => {
     const handleSwitchToSignUp = () => {
         setSignIn(false);
     };
-
-
-
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-100" style={{ zIndex: 9999 }}>
