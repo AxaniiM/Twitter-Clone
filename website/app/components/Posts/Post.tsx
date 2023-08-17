@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { deletePost } from "@/app/store/slices/postSlice";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { UsernameAuth } from "@/app/store/selectors/authSelectors";
+import { AppDispatch } from "@/app/store/store";
 
 interface PostComponentProps extends PostProps {
   id: number;
@@ -14,7 +15,7 @@ interface PostComponentProps extends PostProps {
 const Post: React.FC<PostComponentProps> = ({ text, user_id, id }) => {
 
   const username = useSelector((state: UsernameAuth) => state.auth.username)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // managing the submenu with Delete button
 
 
@@ -29,13 +30,15 @@ const Post: React.FC<PostComponentProps> = ({ text, user_id, id }) => {
   if (!username) {
     return <div>Loading...</div>
   }
-  const handleDeletePost = () => {
-
+  const handleDeletePost = async () => {
     handleClosePostMenu();
-    if (typeof id === "number") {
-      dispatch(deletePost(id)); // Pass the user_id to the deletePost action creator
+    try {
+      await dispatch(deletePost(id)); // Dispatch the async thunk action using store's dispatch
+      console.log("Post deleted successfully");
+    } catch (error) {
+      console.error("Error deleting post:", error);
     }
-  }
+  };
 
   return (
     <Card className="mb-1" key={user_id} sx={{

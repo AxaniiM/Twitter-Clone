@@ -2,15 +2,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "@/app/store/slices/postSlice";
-import { AllPostsFetched } from "@/app/interfaces/postInterface";
+import PostProps from "@/app/interfaces/postInterface";
 import Post from "./Post";
 import { allPosts } from "@/app/store/slices/postSlice";
-import { selectAuthUser } from "@/app/store/selectors/authSelectors";
 
 const PostList: React.FC = () => {
   const dispatch = useDispatch();
   const posts = useSelector(allPosts);
-  const user = useSelector(selectAuthUser)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +30,7 @@ const PostList: React.FC = () => {
 
   return (
     <div>
-      {posts.posts.map((post: AllPostsFetched) => (
+      {posts.posts.map((post: PostProps) => (
         <Post key={post.id} {...post} />
       ))}
     </div>

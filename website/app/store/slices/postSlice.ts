@@ -36,17 +36,29 @@ export const fetchPosts = createAsyncThunk("protected/fetchPosts", async () => {
   }
 });
 
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (id: number) => {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+      throw new Error("No token available");
+    }
+    await axios.delete(`http://localhost:8000/protected/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return id; // Return the postId to remove it from the Redux store
+  }
+);
+
 const postSlice = createSlice({
   name: "posts",
   initialState: initialPostState,
   reducers: {
     addPost: (state, action: PayloadAction<PostProps>) => {
       state.posts.push(action.payload);
-    },
-    deletePost: (state, action: PayloadAction<number>) => {
-      const postId = action.payload;
-      state.posts = state.posts.filter((post) => post.id !== postId);
-      console.log(state.posts)
     },
   },
   extraReducers: (builder) => {
@@ -60,11 +72,15 @@ const postSlice = createSlice({
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
-      });
+      })
+      .addCase(deletePost.fulfilled, (state, action)=> {
+        const postIdToDelete = action.payload;
+        state.posts = state.posts.filter((post) => post.id !== postIdToDelete);
+      })
   },
 });
 
 export const allPosts = (state: RootState) => state.posts;
 
-export const { addPost, deletePost } = postSlice.actions;
+export const { addPost } = postSlice.actions;
 export default postSlice.reducer;
